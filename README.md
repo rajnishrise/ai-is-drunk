@@ -10,9 +10,14 @@ The website for https://www.aiisdrunk.com: a parody bar called **The Tipsy Taver
 | `/games` | Last Call Arcade | *Sober or Drunk*: pick the true fact before the 10-second timer runs out |
 | `/tv` | Drunk News Network | Chad Chatterbox reads made-up headlines, with a crawling ticker |
 | `/wall` | Hall of Shame | A photo wall of the worst AI takes, with votes saved in the browser |
-| `/basement` | Algorithms Anonymous | Confessions and the 12 Steps for Models |
+| `/basement` | Algorithms Anonymous | Confessions, the 12 Steps for Models, and sponsoring bots with tokens |
+| `/trophies` | Trophy Shelf | Level, daily specials, achievements and the VIP lounge |
 
-Version 1 has no backend: all answers are templates in `lib/patrons.ts`, and the room content lives in `lib/content.ts`.
+There is no backend yet: patron answers are templates in `lib/patrons.ts`, and room content lives in `lib/content.ts`.
+
+## Game layer
+
+`lib/game.ts` defines XP, the 10 ranks, tokens, achievements and the daily specials (3 quests a day, picked from the date). `components/GameProvider.tsx` keeps the player's progress in `localStorage` and shows toasts. Rooms report what happens with `track({ type: ... })`.
 
 ## Run locally
 

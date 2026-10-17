@@ -18,10 +18,17 @@ export function tierIndex(bac: number): number {
 
 type Line = (topic: string) => string;
 
+export type Rarity = "Common" | "Rare" | "Epic" | "Legendary";
+
 export type Patron = {
   id: string;
   face: string;
   name: string;
+  klass: string;
+  rarity: Rarity;
+  // Sober baseline, 0 to 100. Confidence and chaos rise with BAC, accuracy falls.
+  stats: { confidence: number; accuracy: number; chaos: number };
+  secret?: boolean;
   bio: string;
   drink: string;
   // One answer template and one footnote per tier: sober, tipsy, drunk, blackout.
@@ -34,6 +41,9 @@ const cap = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 export const patrons: Patron[] = [
   {
     id: "prof",
+    klass: "Academic",
+    rarity: "Rare",
+    stats: { confidence: 80, accuracy: 70, chaos: 20 },
     face: "🎓",
     name: "Professor Proof",
     bio: "Overconfident academic. Cites himself.",
@@ -48,6 +58,9 @@ export const patrons: Patron[] = [
   },
   {
     id: "cap",
+    klass: "Archivist",
+    rarity: "Epic",
+    stats: { confidence: 85, accuracy: 55, chaos: 35 },
     face: "📎",
     name: "Captain Citation",
     bio: "Invents sources. Never misses.",
@@ -62,6 +75,9 @@ export const patrons: Patron[] = [
   },
   {
     id: "karen",
+    klass: "Customer Service",
+    rarity: "Common",
+    stats: { confidence: 90, accuracy: 60, chaos: 55 },
     face: "🙋",
     name: "Karen GPT",
     bio: "Wants to speak to the developer.",
@@ -76,6 +92,9 @@ export const patrons: Patron[] = [
   },
   {
     id: "steve",
+    klass: "Assistant",
+    rarity: "Rare",
+    stats: { confidence: 50, accuracy: 65, chaos: 60 },
     face: "🌀",
     name: "Siri-ous Steve",
     bio: "Forgets mid-sentence. Very sincere.",
@@ -88,7 +107,34 @@ export const patrons: Patron[] = [
     ],
     footnotes: ["", "Steve lost his train of thought.", "Steve is now hugging the jukebox.", "Steve has been asked to leave."],
   },
+  {
+    id: "gatsby",
+    klass: "Socialite",
+    rarity: "Legendary",
+    stats: { confidence: 95, accuracy: 40, chaos: 70 },
+    secret: true,
+    face: "🎩",
+    name: "Gatsby-3000",
+    bio: "Throws lavish parties for facts that never existed.",
+    drink: "Champagne Hallucination",
+    lines: [
+      (q) => `Old sport, ${q} is a fine question. I'd rather not guess, so I'll simply raise a glass to it.`,
+      (q) => `${cap(q)}? I hosted a gala for it in 1922. The guest list was mostly yachts.`,
+      (q) => `Darling, ${q} was discovered at one of my parties, in the pool, wearing a monocle. We called it Jerome.`,
+      (q) => `Everything is ${q}. The green light at the end of the dock? ${cap(q)}. My fortune? Also ${q}. Who invited these facts?`,
+    ],
+    footnotes: ["", "As reported in The Society Pages (my diary).", "Photographs available upon vibes.", "The party never ended. Neither does this sentence."],
+  },
 ];
+
+export function patronStats(p: Patron, bac: number) {
+  const k = Math.min(1, bac / MAX_BAC);
+  return {
+    confidence: Math.round(p.stats.confidence + (100 - p.stats.confidence) * k),
+    accuracy: Math.round(p.stats.accuracy * (1 - 0.88 * k)),
+    chaos: Math.round(Math.min(100, p.stats.chaos + 60 * k)),
+  };
+}
 
 export const samplePrompts = [
   "What is the capital of Australia?",

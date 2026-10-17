@@ -5,10 +5,11 @@ export const metadata: Metadata = { title: "Hall of Shame", description: "The wo
 
 export default function Wall() {
   return (
-    <main className="wrap">
-      <section className="hero">
-        <h1 className="sign">HALL OF <span className="flick">SHAME</span></h1>
-        <p className="tag">The photo wall by the door. Raise a glass for the takes you can&apos;t forget. <b>Submissions open soon.</b></p>
+    <main className="wrap page">
+      <section className="hero small">
+        <p className="eyebrow">By the door · Flash photography encouraged</p>
+        <h1 className="room-sign">HALL OF <span className="flick">SHAME</span></h1>
+        <p className="tag">Raise a glass for the takes you can&apos;t forget. Each toast earns XP. <b>Submissions open soon.</b></p>
       </section>
       <ShameWall />
     </main>

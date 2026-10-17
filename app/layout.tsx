@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import Nav from "@/components/Nav";
+import GameProvider from "@/components/GameProvider";
+import Toasts from "@/components/Toasts";
+import Ambient from "@/components/Ambient";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -15,7 +18,7 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = { themeColor: "#120d1c", viewportFit: "cover" };
+export const viewport: Viewport = { themeColor: "#0c0814", viewportFit: "cover" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -26,18 +29,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Bungee&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Monoton&family=Press+Start+2P&family=Bungee&family=Bungee+Shade&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;600;700&display=swap"
         />
       </head>
       <body>
-        <Nav />
-        {children}
-        <footer className="site">
-          <div className="wrap">
-            <span>Parody. No real AI was harmed, and the AI answers are wrong on purpose.</span>
-            <span>aiisdrunk.com · Please verify your facts responsibly.</span>
-          </div>
-        </footer>
+        <GameProvider>
+          <Ambient />
+          <Nav />
+          {children}
+          <Toasts />
+          <footer className="site">
+            <div className="wrap">
+              <span>Parody. No real AI was harmed, and the AI answers are wrong on purpose.</span>
+              <span>aiisdrunk.com · Type &ldquo;hic&rdquo; for luck.</span>
+            </div>
+          </footer>
+        </GameProvider>
       </body>
     </html>
   );
