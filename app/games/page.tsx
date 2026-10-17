@@ -5,17 +5,19 @@ export const metadata: Metadata = { title: "Last Call Arcade", description: "Sob
 
 export default function Games() {
   return (
-    <main className="wrap">
-      <section className="hero">
-        <h1 className="sign mint">LAST CALL <span className="flick">ARCADE</span></h1>
-        <p className="tag">The back room. Ten seconds per round. Pick the fact a <b>sober</b> person would say.</p>
+    <main className="wrap page">
+      <section className="hero small">
+        <p className="eyebrow">Back room · Coins not accepted</p>
+        <h1 className="room-sign cyan">LAST CALL <span className="flick">ARCADE</span></h1>
+        <p className="tag">Ten seconds per round. Pick the fact a <b>sober</b> person would say. Every right answer earns XP, and every 100 points earns a token.</p>
       </section>
       <SoberOrDrunk />
-      <section className="panel">
-        <h2 className="section-title">Coming soon to the back room</h2>
-        <p style={{ margin: 0, color: "var(--muted)" }}>
-          The Daily Hangover, a once-a-day puzzle you can share with friends, and Walk the Line, where every wrong answer makes the robot sway harder.
-        </p>
+      <section className="panel coming">
+        <h2 className="kicker">Coming soon to the back room</h2>
+        <div className="grid-2">
+          <div><b>The Daily Hangover</b><p className="muted">One hallucinated fact a day. Six guesses. Share your grid.</p></div>
+          <div><b>Walk the Line</b><p className="muted">Every wrong answer makes the robot sway harder. Don&apos;t fall off.</p></div>
+        </div>
       </section>
     </main>
   );
